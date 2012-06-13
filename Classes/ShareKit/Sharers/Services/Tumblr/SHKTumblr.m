@@ -290,6 +290,14 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
                 [body appendData:[@"Content-Disposition: form-data; name=\"generator\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
                 [body appendData:[generator dataUsingEncoding:NSUTF8StringEncoding]];
             }
+			
+			if([item URL]){
+                [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
+                                  dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[@"Content-Disposition: form-data; name=\"click-through-url\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[[NSString stringWithFormat:@"%@", [item URL]] dataUsingEncoding:NSUTF8StringEncoding]];
+
+            }
 
             if([item tags]){
                 [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
